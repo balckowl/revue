@@ -2,7 +2,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth } from "../libs/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
-import { GithubAuthProvider } from "firebase/auth/cordova";
+import { GithubAuthProvider } from "firebase/auth";
 
 
 const SignIn = () => {
@@ -23,6 +23,7 @@ const SignIn = () => {
     const signInWithGithub = () => {
         signInWithPopup(auth, githubProvider).then(() => {
             navigate("/home", { replace: true })
+            console.log('click')
         }).catch((err) => {
             console.log(err)
         })
