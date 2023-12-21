@@ -1,0 +1,220 @@
+header .container{
+  height: 80px;
+}
+
+.logout-btn{
+  cursor: pointer;
+}
+
+.signin-title{
+  margin-bottom: 20px;
+}
+
+.signin-btn a, .signup-btn a, .logout-btn{
+  display: block;
+  color: white;
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 3px;
+  coursor: pointer;
+}
+
+.signup-page, .signin-page{
+  padding-top: 100px;
+}
+
+.signup-img-box{
+  margin-bottom: 20px;
+}
+
+.signup-img-box img{
+  width: 200px;
+  heghit: 200px;
+}
+
+.signin-box{
+  margin-bottom: 5px;
+}
+
+.google-signin-box, .github-signin-box{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.google-signin-box{
+  margin-bottom: 10px;
+}
+
+.email-signin-box a{
+  color: blue;
+  text-decoration: underline;
+  font-size: 12px;
+}
+
+.github-icon, .google-icon{
+  width: 30px;
+  height: 30px;
+}
+
+.input-email-box{
+  margin-bottom: 10px;
+}
+
+.input-email-box input{
+  padding: 2px 5px;
+}
+
+.input-password-box{
+  margin-bottom: 10px;
+}
+
+.input-password-box input{
+  padding: 2px 5px;
+}
+
+.signin-submit{
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+.setting-title{
+  margin-bottom: 30px;
+}
+
+.input-username-box{
+  margin-bottom: 20px;
+}
+
+.input-username-box input{
+  padding: 5px 10px;
+}
+
+.input-files-box{
+  margin-bottom: 20px;
+}
+
+.user-img-preview-box{
+  margin-bottom: 20px;
+}
+
+.user-img-preview-box img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.setting-submit{
+  width: 70px;
+  border: none;
+}
+
+.user-photo img{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.screen{
+  height: 600px;
+  overflow: scroll;
+}
+
+.post{
+  border-bottom: 1px solid black;
+}
+
+.post-text-box h2{
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+.post-text-box a{
+  color: blue;
+  text-decoration: underline;
+}
+
+.post-text-box ul{
+  list-style: square inside;
+  line-height: 1.8;
+}
+
+.post-text-box p{
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.post-user-img-box img{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.createdat-box time{
+  color: #aaa;
+  font-size: 12px;
+}
+
+.ai-toggle-btn{
+  width: max-content;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.ai-toggle-btn.active{
+  background-color: black;
+  color: white;
+}
+
+.message-area{
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+.textarea-box{
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.textarea-box textarea{
+  border: none;
+  outline: none;
+  height: 30px;
+  font-size: 20px;
+  padding-left: 10px;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.textarea-box textarea:focus {
+  outline: none;
+}
+
+.send-message-btn-box button{
+  border: none;
+  background-color: transparent;
+}
+
+.send-message-btn-box{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper{
+  font-size: 20px;
+}
+
+.setting-btn-box a{
+  padding: 8px 12px;
+  width: max-width;
+  border: 1px solid black;
+  border-radius: 5px;
+}
