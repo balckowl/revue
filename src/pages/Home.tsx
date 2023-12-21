@@ -28,7 +28,7 @@ const Home = () => {
         breaks: true,
     });
 
-    const genAI = new GoogleGenerativeAI("AIzaSyA0mHoqLrTR5NX5zrdS1bKeQXuMFGrdGfY");
+    const genAI = new GoogleGenerativeAI(import.meta.env.GEMINI_API_KEY);
 
     const generate = async (prompt: any) => {
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -74,7 +74,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(query(collection(db, "messages"), orderBy("createdAt")), (snapshot) => {
+        const unsubscribe = onSnapshot(query(collection(db, "messages"), orderBy("createdAt"), limit(10)), (snapshot) => {
             const messageList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setMessages(messageList);
         });

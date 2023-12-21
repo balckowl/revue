@@ -1,14 +1,11 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../libs/firebase";
-import { useAuthState } from "react-firebase-hooks/auth"
 import { FormEvent, useRef } from "react";
 
 const SignUpEmail = () => {
 
     const emailRef = useRef<HTMLInputElement | null>(null)
     const passwordRef = useRef<HTMLInputElement | null>(null)
-
-    const [user] = useAuthState(auth);
 
     const handleSignUp = (e: FormEvent) => {
         e.preventDefault();
@@ -18,15 +15,11 @@ const SignUpEmail = () => {
 
         if (email && password) {
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    // ...
+                .then(() => {
+                    
                 })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
+                .catch((err) => {
+                    console.log(err)
                 });
         }
     }

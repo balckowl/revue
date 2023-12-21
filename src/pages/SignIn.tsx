@@ -16,7 +16,7 @@ const SignIn = () => {
         signInWithPopup(auth, googleProvider).then(() => {
             navigate("/home", { replace: true })
         }).catch((err) => {
-
+            console.log(err)
         })
     }
 
@@ -24,7 +24,7 @@ const SignIn = () => {
         signInWithPopup(auth, githubProvider).then(() => {
             navigate("/home", { replace: true })
         }).catch((err) => {
-
+            console.log(err)
         })
     }
 

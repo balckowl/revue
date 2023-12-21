@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, storage } from "../libs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -24,7 +24,7 @@ const Settings = () => {
         if (file && userName) {
             const storageRef = ref(storage, `images/${file?.name}`);
 
-            uploadBytes(storageRef, file).then((snapshot) => {
+            uploadBytes(storageRef, file).then(() => {
                 console.log('Uploaded a blob or file!');
             }).then(() => {
                 getDownloadURL(ref(storage, `images/${file?.name}`)).then((url) => {
