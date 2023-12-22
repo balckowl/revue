@@ -19,6 +19,7 @@ const Home = () => {
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const [active, setActive] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isComposing, setIsComposing] = useState<boolean>(false);
 
     const [user] = useAuthState(auth);
     const { displayName, photoURL } = user || {};
@@ -28,7 +29,7 @@ const Home = () => {
         breaks: true,
     });
 
-    const genAI = new GoogleGenerativeAI(import.meta.env.GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
     const generate = async (prompt: any) => {
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -72,11 +73,10 @@ const Home = () => {
         scrollToBottom();
     }, [messages])
 
-
     useEffect(() => {
-        const unsubscribe = onSnapshot(query(collection(db, "messages"), orderBy("createdAt"), limit(10)), (snapshot) => {
+        const unsubscribe = onSnapshot(query(collection(db, "messages"), orderBy("createdAt", "desc"), limit(10)), (snapshot) => {
             const messageList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setMessages(messageList);
+            setMessages(messageList.reverse());
         });
 
         return () => unsubscribe();
@@ -84,27 +84,49 @@ const Home = () => {
     }, []);
 
     const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        if (messageRef.current?.value !== undefined && messageRef.current?.value.trim().length > 0) {
+        if (!messageRef.current) return;
+        const message = messageRef.current.value.trim();
+
+        if (message.length > 0 && !isLoading) {
+            // メッセージを送信する前にテキストエリアをクリア
+            messageRef.current.value = "";
+            messageRef.current.style.height = '30px';
+
             addDoc(collection(db, "messages"), {
-                text: messageRef.current?.value,
+                text: message,
                 photoURL,
                 displayName,
                 createdAt: serverTimestamp(),
             });
 
             if (active) {
+                const generatedMessage = await generate(message);
                 addDoc(collection(db, "messages"), {
-                    text: await generate(messageRef.current?.value),
+                    text: generatedMessage,
                     photoURL,
                     displayName: "Gemini AI",
                     createdAt: serverTimestamp(),
                 });
             }
+        }
+    }
 
-            messageRef.current.value = "";
-            messageRef.current.style.height = '30px'
+    // IME入力が開始された場合に呼び出されるハンドラー
+    const handleCompositionStart = () => {
+        setIsComposing(true);
+    }
+
+    // IME入力が終了した場合に呼び出されるハンドラー
+    const handleCompositionEnd = () => {
+        setIsComposing(false);
+    }
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
+            e.preventDefault();
+            handleSubmit(e);
         }
     }
 
@@ -151,7 +173,16 @@ const Home = () => {
                                     <div className="row g-0  message-area">
                                         <div className="col-11">
                                             <div className="textarea-box">
-                                                <textarea className="w-100" ref={messageRef} onChange={adjustTextareaHeight} style={{ resize: 'none', overflowY: 'hidden' }} placeholder="write a message in this field..." />
+                                                <textarea className="w-100"
+                                                    ref={messageRef}
+                                                    onKeyDown={handleKeyDown}
+                                                    onCompositionStart={handleCompositionStart}
+                                                    onCompositionEnd={handleCompositionEnd}
+                                                    onChange={adjustTextareaHeight}
+                                                    style={{ resize: 'none', overflowY: 'hidden' }}
+                                                    placeholder="write a message in this field..."
+                                                // value={message as string}
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-1">
