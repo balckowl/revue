@@ -7,19 +7,21 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast"
 
 const Settings = () => {
 
     const [file, setFile] = useState<File | null>(null)
     const [userName, setUserName] = useState<string>("");
     const [previewUrl, setPreviewUrl] = useState('');
-    const fileInputRef = useRef<HTMLInputElement>(null); 
+    const [isUploading, setIsUpLoading] = useState<boolean>(false)
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setUserName(user?.displayName as string)
-        setPreviewUrl(user?.photoURL as string)
+        setUserName(user?.displayName || "")
+        setPreviewUrl(user?.photoURL || "")
     }, [user]);
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,14 +39,16 @@ const Settings = () => {
     };
 
     const handleImagePreviewClick = () => {
-        fileInputRef.current?.click(); 
+        fileInputRef.current?.click();
     };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
 
         if (file && userName) {
+            setIsUpLoading(true); 
             const storageRef = ref(storage, `images/${file?.name}`);
+            const loadingToast = toast.loading('アップロード中...');
 
             uploadBytes(storageRef, file).then(() => {
                 console.log('Uploaded a blob or file!');
@@ -55,12 +59,16 @@ const Settings = () => {
                             displayName: userName,
                             photoURL: url,
                         }).then(() => {
-                            // See the UserRecord reference doc for the contents of userRecord.
-                            console.log('Successfully updated user');
+                            toast.dismiss(loadingToast); // ローディングトーストを削除
+                            toast.success('アップロード完了！');
+                            return new Promise(resolve => setTimeout(resolve, 1000));
+                        }).then(() => {
                             navigate("/home", { replace: true })
                         }).catch((error) => {
                             console.log('Error updating user:', error);
-                        });
+                        }).finally(() => {
+                            setIsUpLoading(false); // アップロードが終了（成功または失敗）した時に状態を更新
+                        });;
                     }
                 })
             });
@@ -76,6 +84,7 @@ const Settings = () => {
                             <div className="col-11 py-4">
                                 <h3 className="setting-title"><FontAwesomeIcon icon={faGear} className="pe-2" />Settings</h3>
                                 <form onSubmit={handleSubmit}>
+                                    <Toaster />
                                     <div className="input-username-box">
                                         <input type="text" onChange={(e) => setUserName(e.target.value)} value={userName} />
                                     </div>
@@ -83,14 +92,14 @@ const Settings = () => {
                                         <input
                                             type="file"
                                             ref={fileInputRef}
-                                            onChange={handleImageChange}
+                                            onChange={(e) => { handleImageChange(e); setFile(e.target.files![0]) }}
                                             className="d-none"
                                         />
                                     </div>
                                     <motion.div className="user-img-preview-box" onClick={handleImagePreviewClick} whileTap={{ scale: 1.3 }}>
                                         {previewUrl && <img src={previewUrl} alt="Preview" />}
                                     </motion.div>
-                                    <button className="setting-submit">決定</button>
+                                    <button className="setting-submit" disabled={isUploading}>決定</button>
                                 </form>
                             </div>
                         </div>
