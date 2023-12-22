@@ -41,23 +41,6 @@ const Home = () => {
         return text
     }
 
-    // const handlepasswordRestEmail = (e: FormEvent) => {
-    //     e.preventDefault()
-
-    //     const email = emailRef.current?.value;
-
-    //     if (email) {
-    //         sendPasswordResetEmail(auth, email)
-    //             .then((resp) => {
-    //                 // メール送信成功
-    //             })
-    //             .catch((error) => {
-    //                 // メール送信失敗
-    //                 console.log(error)
-    //             })
-    //     }
-    // }
-
     const scrollToBottom = () => {
         if (screenRef.current) {
             const chatBox = screenRef.current;
