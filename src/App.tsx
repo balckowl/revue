@@ -21,13 +21,13 @@ const App = () => {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={user ? <Navigate to="/home" /> : <Top />} />
-        <Route path="/signup/email" element={<SignUpEmail />} />
-        <Route path="/signup/email/verify" element={<EmailVerification />} />
-        <Route path="/signin" element={user ? <Navigate to="/home" /> : <SignIn />} />
-        <Route path="/signin/email" element={user ? <Navigate to="/home" /> : <SignInEmail />} />
+        <Route path="/" element={user ? (user.emailVerified ? < Navigate to="/home" /> : < Navigate to="/signup/email/verify" />) : (<Top />)} />
+        <Route path="/signup/email" element={user ? (user.emailVerified ? < Navigate to="/home" /> : < Navigate to="/signup/email/verify" />) : <SignUpEmail />} />
+        <Route path="/signup/email/verify" element={user ? (user.emailVerified ? < Navigate to="/home" /> : <EmailVerification />) : < Navigate to="/" />} />
+        <Route path="/signin" element={user ? (user.emailVerified ? < Navigate to="/home" /> : < Navigate to="/signup/email/verify" />) : <SignIn/>} />
+        <Route path="/signin/email" element={user ? (user.emailVerified ? < Navigate to="/home" /> : < Navigate to="/signup/email/verify" />) : <SignInEmail />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
+        <Route path="/home" element={user ? (user.emailVerified ? <Home /> : < Navigate to="/signup/email/verify" />) : < Navigate to="/" />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

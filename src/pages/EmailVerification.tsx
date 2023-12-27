@@ -8,12 +8,17 @@ const EmailVerification = () => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth)
 
-
     useEffect(() => {
-        if (user && user?.emailVerified) {
-            navigate('/home')
-        }
-    }, [])
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            if (currentUser?.emailVerified) {
+                navigate('/home');
+            }
+        });
+
+        return () => unsubscribe();
+    }, [navigate]);
+
+    console.log(user?.emailVerified)
 
 
     return (

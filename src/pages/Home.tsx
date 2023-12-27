@@ -198,15 +198,13 @@ const Home = () => {
                                 </div>
 
                                 <div>
-                                    <div className="d-flex justify-content-between border-bottom">
+                                    <div className="d-flex justify-content-between border-bottom mb-2">
                                         <h4>Channel</h4>
                                         <div><FontAwesomeIcon icon={faPlusCircle} /></div>
                                     </div>
                                     <div>
-                                        <ul>
-                                            <li><FontAwesomeIcon icon={faHashtag} />General</li>
-                                            <li></li>
-                                            <li></li>
+                                        <ul className="channel-list">
+                                            <li><FontAwesomeIcon icon={faHashtag} className="me-2"/>General</li>
                                         </ul>
                                     </div>
                                 </div>

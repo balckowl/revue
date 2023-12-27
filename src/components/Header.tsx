@@ -26,10 +26,11 @@ const Header = () => {
                 <li className="signin-btn"><Link to="/signIn">LogIn</Link></li>
               </>
             ) : (
-              <>
-                <li className="logout-btn" onClick={() => { auth.signOut(); navigate("/", { replace: true }) }}>Logout</li>
-                <li className="user-photo"><img src={user.photoURL || ''} alt="" /></li>
-              </>
+              user.emailVerified && (
+                <>
+                  <li className="logout-btn" onClick={() => { auth.signOut(); navigate("/", { replace: true }) }}>Logout</li>
+                  <li className="user-photo"><img src={user.photoURL || ''} alt="" /></li>
+                </>)
             )
           }
         </ul>
