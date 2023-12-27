@@ -176,7 +176,7 @@ header .container{
 }
 
 .input-username-box{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .input-username-box input{
@@ -188,7 +188,6 @@ header .container{
 }
 
 .user-img-preview-box{
-  margin-bottom: 20px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -306,11 +305,31 @@ header .container{
   font-size: 20px;
 }
 
+.setting-page{
+  height: 800px;
+}
+
+.setting-title{
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
 .setting-btn-box a{
   padding: 8px 12px;
   width: max-width;
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.setting-list li{
+  font-size: 17px;
+  margin-bottom: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.setting-list .is-setting-active{
+  color: black;
 }
 
 .channel-list li{
@@ -320,3 +339,20 @@ header .container{
   background-color: #eee;
   font-size: 17px;
 }
+
+.general-avatar-box, .general-displayname-box{
+  padding: 50px;
+}
+
+.general-avatar-box h3, .general-displayname-box h3{
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.general-avatar-box p, .general-displayname-box p{
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 9px;
+}
+
+
