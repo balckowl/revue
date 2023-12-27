@@ -2,10 +2,79 @@ header .container{
   height: 80px;
 }
 
+.logo-img-box img{
+  width: 60px;
+  height: 60px;
+}
+
+/*top*/
+.hero{
+  height: 500px;
+  border-bottom: 1px solid #ccc;
+}
+
+.hero-inner{
+  margin-top: 120px;
+}
+
+.hero-title{
+  font-size: 40px;
+}
+
+.joinus-btn{
+  display: flex;
+  justify-content: center;
+}
+
+.joinus-btn a{
+  display: block;
+  padding: 5px 15px;
+  width: max-content;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  coursor: pointer;
+}
+
+.works, .tech-stack{
+  padding-block: 100px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tech-img-box{
+  text-align: center; 
+}
+
+.tech-img-box img{
+  width: auto;
+  height: 60px;
+}
+
+.work-img-box{
+  text-align: center;
+}
+
+.work-img-box img{
+  width: auto;
+  height: 150px;
+}
+
+.work-text-box p{
+  font-size: 14px;
+  color: #aaa;
+}
+
+.section-title{
+  text-align: center;
+  font-size: 25px;
+  padding-block: 5px;
+}
+
 .logout-btn{
   cursor: pointer;
 }
 
+/*signin, signup*/
 .signin-title{
   margin-bottom: 20px;
 }
@@ -36,14 +105,14 @@ header .container{
   margin-bottom: 5px;
 }
 
-.google-signin-box, .github-signin-box{
+.google-signin-box, .github-signin-box, .twitter-signin-box{
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
 }
 
-.google-signin-box{
+.google-signin-box, .github-signin-box{
   margin-bottom: 10px;
 }
 
@@ -53,9 +122,17 @@ header .container{
   font-size: 12px;
 }
 
-.github-icon, .google-icon{
+.github-icon, .google-icon, .twitter-icon{
   width: 30px;
   height: 30px;
+}
+
+.input-name-box{
+  margin-bottom: 10px;
+}
+
+.input-name-box input{
+  padding: 2px 5px;
 }
 
 .input-email-box{
@@ -66,11 +143,25 @@ header .container{
   padding: 2px 5px;
 }
 
+.error-name-message, .error-email-message, .error-password-message, .error-confirm-password-message{
+  margin-top: 3px;
+  font-size: 10px;
+  color: red;
+}
+
 .input-password-box{
   margin-bottom: 10px;
 }
 
 .input-password-box input{
+  padding: 2px 5px;
+}
+
+.input-conform-password-box{
+  margin-bottom: 10px;
+}
+
+.input-conform-password-box input{
   padding: 2px 5px;
 }
 

@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Prism from "prismjs";
 import "prism-themes/themes/prism-one-light.min.css"
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faHashtag, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion"
+import toast, { Toaster } from "react-hot-toast";
 
 const Home = () => {
     // const emailRef = useRef<HTMLInputElement | null>(null)
@@ -66,6 +67,7 @@ const Home = () => {
 
     }, []);
 
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
@@ -85,6 +87,9 @@ const Home = () => {
             });
 
             if (active) {
+
+                const loadingToast = toast.loading('生成中...');
+
                 const generatedMessage = await generate(message);
                 addDoc(collection(db, "messages"), {
                     text: generatedMessage,
@@ -92,6 +97,8 @@ const Home = () => {
                     displayName: "Gemini AI",
                     createdAt: serverTimestamp(),
                 });
+
+                toast.dismiss(loadingToast);
             }
         }
     }
@@ -150,9 +157,9 @@ const Home = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    {isLoading && <p>生成中...</p>}
                                 </div>
                                 <form onSubmit={handleSubmit}>
+                                    <Toaster />
                                     <div className="row g-0  message-area">
                                         <div className="col-11">
                                             <div className="textarea-box">
@@ -183,10 +190,24 @@ const Home = () => {
                     <div className="shadow">
                         <div className="row justify-content-center g-0">
                             <div className="col-11 py-4">
-                                <div className="d-flex align-items-center gap-3">
+                                <div className="d-flex align-items-center gap-3 mb-3">
                                     <motion.div className={`ai-toggle-btn ${active && 'active'}`} onClick={() => setActive(!active)} whileTap={{ scale: 1.1 }}>Ask ai👂</motion.div>
                                     <div className="setting-btn-box">
                                         <Link to="/settings"><FontAwesomeIcon icon={faGear} className="pe-1" />settings</Link>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="d-flex justify-content-between border-bottom">
+                                        <h4>Channel</h4>
+                                        <div><FontAwesomeIcon icon={faPlusCircle} /></div>
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li><FontAwesomeIcon icon={faHashtag} />General</li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

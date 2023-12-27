@@ -68,7 +68,7 @@ const Settings = () => {
                             console.log('Error updating user:', error);
                         }).finally(() => {
                             setIsUpLoading(false); // アップロードが終了（成功または失敗）した時に状態を更新
-                        });;
+                        });
                     }
                 })
             });

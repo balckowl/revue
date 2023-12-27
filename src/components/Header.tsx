@@ -10,17 +10,24 @@ const Header = () => {
   return (
     <header>
       <div className="container d-flex align-items-center justify-content-between">
-        <h1><Link to={user ? "/home" : "/"}>ReVue</Link></h1>
+        <div>
+          <Link to={user ? "/home" : "/"} className="d-flex align-items-center">
+            <div className="logo-img-box">
+              <img src="/images/logo.png" alt="" />
+            </div>
+            <h1>ReVue</h1>
+          </Link>
+        </div>
         <ul className="d-flex align-items-center gap-3">
           {!user ?
             (
               <>
                 <li className="signup-btn"><Link to="/signup/email">SignUp</Link></li>
-                <li className="signin-btn"><Link to="/signIn">SignIn</Link></li>
+                <li className="signin-btn"><Link to="/signIn">LogIn</Link></li>
               </>
             ) : (
               <>
-                <li className="logout-btn" onClick={() => { auth.signOut(); navigate("/", { replace: true })}}>Logout</li>
+                <li className="logout-btn" onClick={() => { auth.signOut(); navigate("/", { replace: true }) }}>Logout</li>
                 <li className="user-photo"><img src={user.photoURL || ''} alt="" /></li>
               </>
             )

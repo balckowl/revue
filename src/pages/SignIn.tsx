@@ -1,4 +1,4 @@
-import { signInWithPopup } from "firebase/auth";
+import { TwitterAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../libs/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -11,6 +11,7 @@ const SignIn = () => {
 
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
+    const twitterProvider = new TwitterAuthProvider();
 
     const signInWithGoogle = () => {
         signInWithPopup(auth, googleProvider).then(() => {
@@ -22,6 +23,15 @@ const SignIn = () => {
 
     const signInWithGithub = () => {
         signInWithPopup(auth, githubProvider).then(() => {
+            navigate("/home", { replace: true })
+            console.log('click')
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    const signInWithTwitter = () => {
+        signInWithPopup(auth, twitterProvider).then(() => {
             navigate("/home", { replace: true })
             console.log('click')
         }).catch((err) => {
@@ -47,6 +57,12 @@ const SignIn = () => {
                         <img src="/images/github-icon.svg" alt="" className="github-icon" />
                     </div>
                     <p>Sign In With Github</p>
+                </div>
+                <div className="d-flex align-items-center gap-2 twitter-signin-box" onClick={signInWithTwitter}>
+                    <div>
+                        <img src="/images/twitter-icon.svg" alt="" className="twitter-icon" />
+                    </div>
+                    <p>Sign In With Twitter</p>
                 </div>
             </div>
             <div className="email-signin-box">
