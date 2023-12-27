@@ -174,7 +174,7 @@ const Settings = () => {
                                                                         This is your avatar.<br />
                                                                         Click on the avatar to upload a custom one from your files.
                                                                     </p>
-                                                                    <button>Save</button>
+                                                                    <button disabled={isUploading}>Save</button>
                                                                 </div>
                                                                 <div className="input-files-box">
                                                                     <input
