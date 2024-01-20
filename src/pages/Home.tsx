@@ -1,7 +1,7 @@
 import { auth, db } from "../libs/firebase";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { addDoc, collection, doc, getDoc, limit, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, limit, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { marked } from "marked";
 import { Link } from "react-router-dom";
 import { GoogleGenerativeAI } from "@google/generative-ai";

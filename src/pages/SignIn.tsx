@@ -1,4 +1,4 @@
-import { TwitterAuthProvider, User, signInWithPopup } from "firebase/auth";
+import { TwitterAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../libs/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
