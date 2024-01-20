@@ -12,6 +12,7 @@ import SignUpEmail from './pages/SignUpEmail';
 import NotFound from './pages/NotFound';
 import EmailVerification from './pages/EmailVerification';
 import Footer from './components/Footer';
+import Pricing from './pages/Pricing';
 
 const App = () => {
 
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/signin/email" element={user ? (user.emailVerified ? < Navigate to="/home" /> : < Navigate to="/signup/email/verify" />) : <SignInEmail />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/home" element={user ? (user.emailVerified ? <Home /> : < Navigate to="/signup/email/verify" />) : < Navigate to="/" />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

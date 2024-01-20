@@ -3,11 +3,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, storage } from "../libs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast"
+import { useTranslation } from "react-i18next";
 // import { CardElement, Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 // import { loadStripe } from "@stripe/stripe-js";
 
@@ -17,10 +18,12 @@ const Settings = () => {
     const [userName, setUserName] = useState<string>("");
     const [previewUrl, setPreviewUrl] = useState('');
     const [isUploading, setIsUpLoading] = useState<boolean>(false)
+    const [lang, setLang] = useState<string>(localStorage.getItem('i18nextLng') || 'en')
     const [judge, setJudge] = useState<number>(0)
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         setUserName(user?.displayName || "")
@@ -149,13 +152,14 @@ const Settings = () => {
                     <div className="shadow setting-page">
                         <div className="row justify-content-center">
                             <div className="col-11 py-4">
-                                <h3 className="setting-title"><FontAwesomeIcon icon={faGear} className="pe-2" />Settings</h3>
+                                <h3 className="setting-title"><FontAwesomeIcon icon={faGear} className="pe-2" />{t('Settings')}</h3>
                                 <div className="row g-0">
                                     <div className="col-lg-3">
                                         <div>
                                             <ul className="setting-list">
                                                 <li onClick={() => setJudge(0)} className={`${judge == 0 && 'is-setting-active'}`}>General</li>
                                                 <li onClick={() => setJudge(1)} className={`${judge == 1 && 'is-setting-active'}`}>Billing</li>
+                                                <li onClick={() => setJudge(2)} className={`${judge == 2 && 'is-setting-active'}`}>Language</li>
                                                 <li>Theme</li>
                                             </ul>
                                         </div>
@@ -208,21 +212,63 @@ const Settings = () => {
                                             }
                                             {judge == 1 &&
                                                 <div>
-                                                    {/* <div>
-                                                        <Elements stripe={stripePromise}>
-                                                            <form onSubmit={handleCharge}>
-                                                                <div>
-                                                                    <h3>名前</h3>
-                                                                    <input type="text" value={userName} />
+                                                    <div className="border rounded">
+                                                        <form action="">
+                                                            <div className="billing-plan-box">
+                                                                <div className="upper">
+                                                                    <h3>Plan</h3>
+                                                                    <p>Your Personal account is on the <span className="planType">Hobby</span> plan. Free of charge. <Link className="pricing" to="/pricing">Learn more →</Link></p>
                                                                 </div>
-                                                                <div>
-                                                                    <h3>カード番号</h3>
-                                                                    <CardElement />
+                                                                <div className="lower">
+                                                                    <p className="current-period">Current period (Nov 29 – Dec 29).</p>
+                                                                    <div className="row g-1">
+                                                                        <div className="col-4">
+                                                                            <div className="border rounded usage-box">
+                                                                                <h4>token</h4>
+                                                                                <p>5/10</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <button type="submit">注文する</button>
-                                                            </form>
-                                                        </Elements>
-                                                    </div> */}
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            }
+                                            {judge == 2 &&
+                                                <div>
+                                                    <div className="row g-3">
+                                                        <div className="col-12">
+                                                            <div onClick={() => { i18n.changeLanguage('ja'); setLang('ja') }} className={`${lang == "ja" && 'is-lang-active'} d-flex justify-content-between align-items-center p-3 rounded border lang-box`}>
+                                                                <div>
+                                                                    <h3>{t('Japanese')}</h3>
+                                                                </div>
+                                                                <div className="flag">
+                                                                    <img src="/images/japanflag.jpeg" alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-12">
+                                                            <div onClick={() => { i18n.changeLanguage('en'); setLang('en') }} className={`${lang == "en" && 'is-lang-active'} d-flex justify-content-between align-items-center p-3 rounded border lang-box`}>
+                                                                <div>
+                                                                    <h3>{t('English')}</h3>
+                                                                </div>
+                                                                <div className="flag">
+                                                                    <img src="/images/ingland.png" alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-12">
+                                                            <div onClick={() => { i18n.changeLanguage('hi'); setLang('hi') }} className={`${lang == "hi" && 'is-lang-active'} d-flex justify-content-between align-items-center p-3 rounded border lang-box`}>
+                                                                <div>
+                                                                    <h3>{t('India')}</h3>
+                                                                </div>
+                                                                <div className="flag">
+                                                                    <img src="/images/india.svg" alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             }
                                         </div>

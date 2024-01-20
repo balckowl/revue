@@ -355,4 +355,93 @@ header .container{
   margin-bottom: 9px;
 }
 
+.billing-plan-box{
+  padding: 50px;
+}
 
+.billing-plan-box .pricing{
+  color: blue;
+}
+
+.billing-plan-box .upper h3{
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.billing-plan-box .upper p{
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 25px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #ccc;
+}
+
+.current-period{
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.usage-box{
+  padding: 10px 15px;
+}
+
+.planType{
+  padding: 3px 8px;
+  font-size: 11px;
+  color: #fff;
+  background-color: #aaa;
+  border-radius: 5px;
+}
+
+.pricing-hobby, .pricing-pro{
+  padding: 35px 30px;
+}
+
+.pricing-title{
+  padding-block: 70px;
+}
+
+.pricing-plantype{
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.pricing-price{
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.pricing-text{
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.pricing-content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.pricing-btn{
+  background-color: black;
+  width: max-content;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.flag img{
+  width: 50px;
+  border: 1px solid black;
+}
+
+.is-lang-active{
+  background-color: lightgreen;
+}
+
+.lang-box{
+  cursor: pointer;
+}

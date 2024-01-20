@@ -1,8 +1,9 @@
-import { TwitterAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../libs/firebase";
+import { TwitterAuthProvider, User, signInWithPopup } from "firebase/auth";
+import { auth, db } from "../libs/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 
 const SignIn = () => {
@@ -13,12 +14,32 @@ const SignIn = () => {
     const githubProvider = new GithubAuthProvider();
     const twitterProvider = new TwitterAuthProvider();
 
+    const createUserData = async (user: any) => {
+
+        const docRef = doc(db, "users", user?.uid);
+
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return;
+        } else {
+            await setDoc(doc(db, "users", user.uid), {
+                name: user.displayName,
+                lang: 'en',
+            });
+        }
+
+        navigate("/home", { replace: true })
+    }
+
     const signInWithGoogle = () => {
-        signInWithPopup(auth, googleProvider).then(() => {
-            navigate("/home", { replace: true })
-        }).catch((err) => {
-            console.log(err)
-        })
+        signInWithPopup(auth, googleProvider)
+            .then((userCredential) => {
+                const user = userCredential?.user
+                createUserData(user)
+            }).catch((err) => {
+                console.log(err)
+            })
     }
 
     const signInWithGithub = () => {

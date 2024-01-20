@@ -1,0 +1,15 @@
+{
+    "hello": "hello world",
+    "name": "hello {{fn}} {{ln}}",
+    "auth": {
+        "login": "login"
+    },
+    "comment_zero": "zero comment",
+    "comment_one": "a comment",
+    "comment_other": "{{count}} comments",
+    "comment_good_other": "{{count}} good comments",
+    "Settings": "Settings",
+    "Japanese": "Japanese",
+    "English": "English",
+    "India": "india"
+}
